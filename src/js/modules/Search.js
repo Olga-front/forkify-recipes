@@ -6,6 +6,7 @@ export default class Search {
     async getResults() {
 
         try {
+            // URL to parameters
             let response = await fetch(`https://forkify-api.herokuapp.com/api/search?q=${this.query}`);
             let data = await response.json();
             this.result = data.recipes;

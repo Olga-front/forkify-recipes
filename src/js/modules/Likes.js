@@ -30,14 +30,17 @@ export default class Likes {
         return this.likes.findIndex(el => el.id === parseFloat(id)) !== -1;
     }
 
+    // getLikesNumber?
     getNumberLikes() {
         return this.likes.length;
     }
 
+    // must be private
     persistData() {
         localStorage.setItem('likes', JSON.stringify(this.likes));
     }
 
+    // must be private
     readStorage() {
         const storage = JSON.parse(localStorage.getItem('likes'));
 

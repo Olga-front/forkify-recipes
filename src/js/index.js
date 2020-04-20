@@ -46,6 +46,8 @@ const controlSearch = async () => {
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
+
+    // seems like invalid handling of async method
     controlSearch();
 });
 
@@ -59,6 +61,8 @@ elements.searchResPages.addEventListener('click', e => {
     }
 });
 
+
+// So why controllers are not in separate files?
 // /**
 //  * RECIPE CONTROLLER
 //  */

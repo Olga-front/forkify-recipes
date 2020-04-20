@@ -11,9 +11,9 @@ export const highlightSelected = id => {
     const resultsArr = Array.from(document.querySelectorAll('.results__link'));
     resultsArr.forEach(el => {
         el.classList.remove('results__link--active');
-    })
+    });
     document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
-}
+};
 
 export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
@@ -53,6 +53,7 @@ const renderRecipe = rec => {
 
 
 // type: prev || next
+// So maybe Type must be enum, not just a random string?
 const createButton = (page, type) =>
     `
     <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
@@ -63,10 +64,13 @@ const createButton = (page, type) =>
     </button>
     `;
 
+// the whole method looks like magic
 const renderButtons = (page, numResults, resPerPage) => {
+    // pagesCount?
     const pages = Math.ceil(numResults / resPerPage);
     let button;
 
+    // Is 1 a magic number? Why page object can be equal to 1?
     if (page === 1) {
         // Only button to go to next page
         button = createButton(page, 'next');

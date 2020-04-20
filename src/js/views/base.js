@@ -13,7 +13,7 @@ export const elements = {
 export const elementStrings = {
     loader: 'loader',
     btn: 'btn-inline'
-}
+};
 
 export const renderLoader = parent => {
     const loader = `
@@ -32,4 +32,4 @@ export const clearLoader = () => {
     if (loader) {
         loader.parentElement.removeChild(loader);
     }
-}
+};
