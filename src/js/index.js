@@ -1,12 +1,13 @@
-import Search from './modules/Search';
-import Recipe from './modules/Recipe';
-import List from './modules/List';
+import { controlSearch } from './controllers/controlSearch';
+import { controlRecipe } from './controllers/controlRecipe';
+import { controlList } from './controllers/controlList';
+import { controlLike } from './controllers/controlLike';
 import Likes from './modules/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
 import * as likesView from './views/likesView';
-import { elements, renderLoader, clearLoader, elementStrings } from './views/base';
+import { elements, renderLoader, clearLoader, elementStrings, state } from './views/base';
 
 /**Global state of the app
  * - Search object
@@ -14,40 +15,11 @@ import { elements, renderLoader, clearLoader, elementStrings } from './views/bas
  * - Shopping list object
  * - Liked recipes
  */
-const state = {};
-
-const controlSearch = async () => {
-    // 1. Get query from view
-    const query = searchView.getInput(); // TODO
-
-    if (query) {
-        // 2. New search object and add to state
-        state.search = new Search(query);
-
-        // 3. Prepare UI for results
-        // searchView.clearInput();
-        searchView.clearResults();
-        renderLoader(elements.searchRes);
-
-        try {
-            // 4. Search for recipes
-            await state.search.getResults();
-
-            // 5. Render results on UI
-            clearLoader();
-            searchView.renderResult(state.search.result);
-        }
-        catch {
-            alert('Something wrong with the search...');
-            clearLoader();
-        }
-    }
-};
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    // seems like invalid handling of async method
+    // seems like invalid handling of async method --- fixed
     controlSearch();
 });
 
@@ -62,65 +34,8 @@ elements.searchResPages.addEventListener('click', e => {
 });
 
 
-// So why controllers are not in separate files?
-// /**
-//  * RECIPE CONTROLLER
-//  */
-const controlRecipe = async () => {
-    // Get ID from url
-    const id = window.location.hash.replace('#', '');
-
-    if (id) {
-        // Prepare UI for changes
-        recipeView.clearRecipe();
-        renderLoader(elements.recipe);
-
-        // Highlight selected search item
-        if (state.search) searchView.highlightSelected(id);
-
-        // Create new recipe object
-        state.recipe = new Recipe(parseFloat(id));
-
-        try {
-            // Get recipe data
-
-            await state.recipe.getRecipe(); // to wait for the promise to get back with results value
-
-            state.recipe.parseIngredients();
-
-            // Calculate servings and time
-            state.recipe.calcTime();
-            state.recipe.calcServings();
-
-            // Render recipe
-            clearLoader();
-
-            recipeView.renderRecipe(
-                state.recipe,
-                state.likes.isLiked(id)
-            );
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-};
-
+// So why controllers are not in separate files? --- fixed
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
-
-/**
- * LIST CONTROLLER
- */
-const controlList = () => {
-    // Create a new list IF there in none yet
-    if (!state.list) state.list = new List();
-
-    // Add each ingredient to the list
-    state.recipe.ingredients.forEach(el => {
-        const item = state.list.addItem(el.count, el.unit, el.ingredient);
-        listView.renderItem(item);
-    });
-};
 
 // Handle delete and update list item events
 elements.shoppingList.addEventListener('click', e => {
@@ -139,41 +54,6 @@ elements.shoppingList.addEventListener('click', e => {
     }
 });
 
-/**
- * LIKE CONTROLLER
- */
-
-const controlLike = () => {
-    // Create a new likes list IF there in none yet
-    if (!state.likes) state.likes = new Likes();
-    const currentID = state.recipe.id;
-
-    // User has NOT yet liked current recipe
-    if (!state.likes.isLiked(currentID)) {
-        // Add like to the state
-        const newLike = state.likes.addLike(currentID, state.recipe.title, state.recipe.author, state.recipe.img);
-
-        // Toggle the like button
-        likesView.toggleLikeBtn(true);
-
-        // Add like to UI list
-        likesView.renderLike(newLike);
-
-        // User yes liked current recipe
-    } else {
-        // Remove like from the state
-        state.likes.deleteLike(currentID);
-
-        // Toggle the like button
-        likesView.toggleLikeBtn(false);
-
-        // Remove like from UI list
-        likesView.deleteLike(currentID);
-    }
-
-    likesView.toggleLikeMenu(state.likes.getNumberLikes());
-};
-
 // Restore liked recipes on page load
 window.addEventListener('load', () => {
     state.likes = new Likes();
@@ -182,10 +62,10 @@ window.addEventListener('load', () => {
     state.likes.readStorage();
 
     // Toggle like menu button
-    likesView.toggleLikeMenu(state.likes.getNumberLikes());
+    likesView.toggleLikeMenu(state.likes.getLikesNumber());
 
     // Render the existing likes
-    state.likes.likes.forEach(like => {
+    state.likes._likes.forEach(like => {
         likesView.renderLike(like)
     });
 });
@@ -194,7 +74,7 @@ window.addEventListener('load', () => {
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         // Decrease button is clicked
-        if (state.recipe.servings > 1) {
+        if (state.recipe._servings > 1) {
             state.recipe.updateServings('dec');
             recipeView.updateServingsIngredients(state.recipe);
         }

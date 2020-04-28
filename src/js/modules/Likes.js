@@ -1,6 +1,6 @@
 export default class Likes {
     constructor() {
-        this.likes = [];
+        this._likes = [];
     }
 
     addLike(id, title, author, img) {
@@ -11,7 +11,7 @@ export default class Likes {
             img
         }
 
-        this.likes.push(like);
+        this._likes.push(like);
 
         // Persist data in LocalStorage
         this.persistData();
@@ -19,32 +19,32 @@ export default class Likes {
     }
 
     deleteLike(id) {
-        const index = this.likes.findIndex(el => el.id === id);
-        this.likes.splice(index, 1);
+        const index = this._likes.findIndex(el => el.id === id);
+        this._likes.splice(index, 1);
 
         // Persist data in LocalStorage
         this.persistData();
     }
 
     isLiked(id) {
-        return this.likes.findIndex(el => el.id === parseFloat(id)) !== -1;
+        return this._likes.findIndex(el => el.id === parseFloat(id)) !== -1;
     }
 
-    // getLikesNumber?
-    getNumberLikes() {
-        return this.likes.length;
+    // getLikesNumber? --- fixed
+    getLikesNumber() {
+        return this._likes.length;
     }
 
-    // must be private
+    // must be private --- there are no private or public keywords in EC6. I can use just normal functions
     persistData() {
-        localStorage.setItem('likes', JSON.stringify(this.likes));
+        localStorage.setItem('likes', JSON.stringify(this._likes));
     }
 
-    // must be private
+    // must be private --- there are no private or public keywords in EC6. I can use just normal functions
     readStorage() {
         const storage = JSON.parse(localStorage.getItem('likes'));
 
         // Restore likes
-        if (storage) this.likes = storage;
+        if (storage) this._likes = storage;
     }
 }

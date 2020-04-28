@@ -41,19 +41,18 @@ const renderRecipe = rec => {
             </figure>
             <div class="results__data">
                 <h4 class="results__name">${limitRecipeTitle(rec.title)}</h4>
-                <p class="results__author">${rec.piblisher}</p>
+                <p class="results__author">${rec.publisher}</p>
             </div>
         </a>
     </li>
     `;
 
-    
     elements.searchResultsList.insertAdjacentHTML("beforeend", markup);
 };
 
 
 // type: prev || next
-// So maybe Type must be enum, not just a random string?
+// So maybe Type must be enum, not just a random string? -- added enum inside searchView.js
 const createButton = (page, type) =>
     `
     <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
@@ -66,23 +65,27 @@ const createButton = (page, type) =>
 
 // the whole method looks like magic
 const renderButtons = (page, numResults, resPerPage) => {
-    // pagesCount?
-    const pages = Math.ceil(numResults / resPerPage);
+    // pagesCount? -- fixed
+    const pagesCount = Math.ceil(numResults / resPerPage);
+    const btnTypes = {
+        next: 'next',
+        prev: 'prev'
+    };
     let button;
 
-    // Is 1 a magic number? Why page object can be equal to 1?
+    // Is 1 a magic number? Why page object can be equal to 1? -- It means that it is a first page
     if (page === 1) {
         // Only button to go to next page
-        button = createButton(page, 'next');
-    } else if (page < pages) {
+        button = createButton(page, btnTypes.next);
+    } else if (page < pagesCount) {
         // Both buttons
         button = `
-            ${createButton(page, 'prev')}
-            ${createButton(page, 'next')}
+            ${createButton(page, btnTypes.prev)}
+            ${createButton(page, btnTypes.next)}
         `;
-    } else if (page === pages && pages > 1) {
+    } else if (page === pagesCount && pagesCount > 1) {
         // Only button to go to previous page
-        button = createButton(page, 'prev');
+        button = createButton(page, btnTypes.prev);
     }
 
     elements.searchResPages.insertAdjacentHTML('afterbegin', button);
@@ -92,7 +95,7 @@ export const renderResult = (recipes, page = 1, resPerPage = 8) => {
     // render results of current page
     const start = (page - 1) * resPerPage;
     const end = start + resPerPage;
-   
+
     recipes.slice(start, end).forEach(renderRecipe);
 
     // render pagination buttons

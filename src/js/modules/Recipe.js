@@ -1,15 +1,17 @@
 export default class Recipe {
     constructor(id) {
-        this.id = id;
+        this._id = id;
+        this._url = 'https://forkify-api.herokuapp.com/api/get';
+        this._servings = 4;
     }
 
     async getRecipe() {
 
         try {
-            // URL must be in parameters
-            let response = await fetch(`https://forkify-api.herokuapp.com/api/get?rId=${this.id}`);
+            // URL must be in parameters -- fixed
+            let response = await fetch(`${this._url}?rId=${this._id}`);
 
-            // why response is not strongly typed?
+            // why response is not strongly typed? --  I have no idea how to do it
             let result = await response.json();
 
             this.title = result.recipe.title;
@@ -27,17 +29,13 @@ export default class Recipe {
         // Assuming that we need 15 min for each 3 ingredients
         const numIng = this.ingredients.length;
         const periods = Math.ceil(numIng / 3);
-        // what is 15? Magic number? Why not 5.4 or 42? Create a constant with a proper nema what is 15
-        this.time = periods * 15;
-    };
-
-    calcServings() {
-        // just a mock?
-        this.servings = 4;
+        const servTime = 15;
+        // what is 15? Magic number? Why not 5.4 or 42? Create a constant with a proper nema what is 15 -- fixed
+        this.time = periods * servTime;
     };
 
     parseIngredients() {
-        
+
         const unitsLong = ['tablespoons', 'tablespoon', 'pounds', 'teaspoons', 'teaspoon', 'ounces', 'ounce', 'cups'];
         const unitsShort = ['tbsp', 'tbsp', 'pound', 'tsp', 'tsp', 'oz', 'oz', 'cup'];
         const units = [...unitsShort, 'g', 'kg'];
@@ -99,13 +97,13 @@ export default class Recipe {
 
     updateServings(type) {
         // Servings
-        const newString = type === 'dec' ? this.servings - 1 : this.servings + 1;
+        const newString = type === 'dec' ? this._servings - 1 : this._servings + 1;
 
         // Ingredients
         this.ingredients.forEach(ing => {
-            ing.count *= (newString / this.servings)
+            ing.count *= (newString / this._servings)
         });
 
-        this.servings = newString;
+        this._servings = newString;
     }
 }

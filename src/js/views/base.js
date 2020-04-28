@@ -33,3 +33,5 @@ export const clearLoader = () => {
         loader.parentElement.removeChild(loader);
     }
 };
+
+export const state = {};
