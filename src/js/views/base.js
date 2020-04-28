@@ -1,4 +1,5 @@
 export const elements = {
+    mainContainer: document.querySelector('.container'),
     searchForm: document.querySelector('.search'),
     searchInput: document.querySelector('.search__field'),
     searchRes: document.querySelector('.results'),
@@ -14,6 +15,10 @@ export const elementStrings = {
     loader: 'loader',
     btn: 'btn-inline'
 };
+
+export const errorText = {
+    wrongSearchValue: "There is no such value. Please try to type 'pizza'"
+}
 
 export const renderLoader = parent => {
     const loader = `

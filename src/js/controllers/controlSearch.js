@@ -1,6 +1,7 @@
 import Search from '../modules/Search';
 import * as searchView from '../views/searchView';
-import { elements, renderLoader, clearLoader, elementStrings, state } from '../views/base';
+import * as errorView from '../views/errorView';
+import { elements, renderLoader, clearLoader, state, errorText } from '../views/base';
 
 // /**
 //  * SEARCH CONTROLLER
@@ -25,9 +26,10 @@ export const controlSearch = async () => {
             // 5. Render results on UI
             clearLoader();
             searchView.renderResult(state.search.result);
+            errorView.clearErrors();
         }
-        catch {
-            alert('Something wrong with the search...');
+        catch(error) {
+            errorView.renderError(errorText.wrongSearchValue);
             clearLoader();
         }
     }

@@ -61,7 +61,7 @@ const createButton = (page, type) =>
             <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
         </svg>
     </button>
-    `;
+`;
 
 // the whole method looks like magic
 const renderButtons = (page, numResults, resPerPage) => {
