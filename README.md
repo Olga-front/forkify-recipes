@@ -1,6 +1,7 @@
 # forkify-recipes
 
 This project was created as a part of educational Javascript Course.
+http://markup-examples.brain-house.com/forkify/
 
 Using this small web application you can find different recipes according to the desired dish. The name of the dish please type
 inside search area at the top of the window. After selecting a recipe on the left side you can configure your recipe changing
