@@ -9,11 +9,11 @@ quantity of servings. So as not to forget what products are needed for cooking p
 on the right.
 
 The following technologies were used in this project:
-- JS using ES6 (classes; forEach, map, findIndex array methods);
-- JS code was divided into modules and controllers to make it more readable;
-- Webpack, added configuration for SCSS, JS modules
-- NPM, Babel
-- SCSS, variables
+- JS using ES6 (classes; forEach, map, findIndex array methods),
+- JS code was divided into modules and controllers to make it more readable,
+- Webpack, added configuration for SCSS, JS modules,
+- NPM, Babel,
+- SCSS, variables,
 - BEM methodology to make front-end code easier to read and understand, easier to work with, easier to scale and support
 
 
