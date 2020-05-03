@@ -55,9 +55,9 @@ const renderRecipe = rec => {
 // So maybe Type must be enum, not just a random string? -- added enum inside searchView.js
 const createButton = (page, type) =>
     `
-    <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
-        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>   
-        <svg class="search__icon">
+    <button class="btn btn--inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <span class="btn--inline__text">Page ${type === 'prev' ? page - 1 : page + 1}</span>   
+        <svg class="btn--inline__icon">
             <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
         </svg>
     </button>

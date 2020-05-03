@@ -1,15 +1,15 @@
 export default class Recipe {
     constructor(id) {
-        this._id = id;
-        this._url = 'https://forkify-api.herokuapp.com/api/get';
-        this._servings = 4;
+        this.id = id;
+        this.url = 'https://forkify-api.herokuapp.com/api/get';
+        this.servings = 4;
     }
 
     async getRecipe() {
 
         try {
             // URL must be in parameters -- fixed
-            let response = await fetch(`${this._url}?rId=${this._id}`);
+            let response = await fetch(`${this.url}?rId=${this.id}`);
 
             // why response is not strongly typed? --  I have no idea how to do it
             let result = await response.json();
@@ -97,13 +97,13 @@ export default class Recipe {
 
     updateServings(type) {
         // Servings
-        const newString = type === 'dec' ? this._servings - 1 : this._servings + 1;
+        const newString = type === 'dec' ? this.servings - 1 : this.servings + 1;
 
         // Ingredients
         this.ingredients.forEach(ing => {
-            ing.count *= (newString / this._servings)
+            ing.count *= (newString / this.servings)
         });
 
-        this._servings = newString;
+        this.servings = newString;
     }
 }

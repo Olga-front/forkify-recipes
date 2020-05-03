@@ -1,0 +1,15 @@
+@import "_variables";
+@import "_base";
+
+@import "common.blocks/_container-fluid";
+@import "common.blocks/_header";
+@import "common.blocks/_search";
+@import "common.blocks/_likes";
+@import "common.blocks/_btn";
+@import "common.blocks/_loader";
+@import "common.blocks/_footer";
+@import "common.blocks/_error-popup";
+
+@import "inner.blocks/_recipe";
+@import "inner.blocks/_shopping-list";
+@import "inner.blocks/_results";

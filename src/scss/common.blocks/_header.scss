@@ -1,0 +1,16 @@
+.header {
+    grid-area: head;
+    background-color: #f9f5f3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo {
+    margin-left: 4rem;
+    display: block;
+    text-transform: uppercase;
+    color: $main-color-2;
+    font: 700 3em $font-family;
+    text-decoration: none;
+}

@@ -56,17 +56,17 @@ export const renderRecipe = (rec, isLiked) => {
                 <svg class="recipe__info-icon">
                     <use href="img/icons.svg#icon-man"></use>
                 </svg>
-                <span class="recipe__info-data recipe__info-data--people">${rec._servings}</span>
+                <span class="recipe__info-data recipe__info-data--people">${rec.servings}</span>
                 <span class="recipe__info-text"> servings</span>
 
                 <div class="recipe__info-buttons">
-                    <button class="btn-tiny btn-decrease">
-                        <svg>
+                    <button class="btn btn--tiny btn-decrease">
+                        <svg class="btn--tiny__icon">
                             <use href="img/icons.svg#icon-circle-with-minus"></use>
                         </svg>
                     </button>
-                    <button class="btn-tiny btn-increase">
-                        <svg>
+                    <button class="btn btn--tiny btn-increase">
+                        <svg class="btn--tiny__icon">
                             <use href="img/icons.svg#icon-circle-with-plus"></use>
                         </svg>
                     </button>
@@ -84,8 +84,8 @@ export const renderRecipe = (rec, isLiked) => {
                 ${rec.ingredients.map(el => createIngredient(el)).join('')}
             </ul>
 
-            <button class="btn-small recipe__btn recipe__btn--add">
-                <svg class="search__icon">
+            <button class="btn btn--small recipe__btn--add">
+                <svg class="btn--small__icon">
                     <use href="img/icons.svg#icon-shopping-cart"></use>
                 </svg>
                 <span>Add to shopping list</span>
@@ -93,14 +93,14 @@ export const renderRecipe = (rec, isLiked) => {
         </div>
 
         <div class="recipe__directions">
-            <h2 class="heading-2">How to cook it</h2>
+            <h2 class="recipe__directions-title">How to cook it</h2>
             <p class="recipe__directions-text">
                 This recipe was carefully designed and tested by
                 <span class="recipe__by">${rec.author}</span>. Please check out directions at their website.
             </p>
-            <a class="btn-small recipe__btn" href="${rec.url}" target="_blank">
+            <a class="btn btn--small recipe__btn" href="${rec.url}" target="_blank">
                 <span>Directions</span>
-                <svg class="search__icon">
+                <svg class="btn--small__icon">
                     <use href="img/icons.svg#icon-triangle-right"></use>
                 </svg>
             </a>
@@ -111,7 +111,7 @@ export const renderRecipe = (rec, isLiked) => {
 
 export const updateServingsIngredients = recipe => {
     // Update servings
-    document.querySelector('.recipe__info-data--people').textContent = recipe._servings;
+    document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
 
     // Update ingredients
     const countElements = Array.from(document.querySelectorAll('.recipe__count'));

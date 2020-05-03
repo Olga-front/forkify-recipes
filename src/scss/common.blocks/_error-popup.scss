@@ -1,0 +1,23 @@
+.error-message {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    color: #f00;
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 60rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.1);
+    border-radius: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-2rem);
+    transition: 0.2s ease-in-out;
+}
+
+.error-message--shown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}

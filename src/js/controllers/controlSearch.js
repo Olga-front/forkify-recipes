@@ -26,10 +26,10 @@ export const controlSearch = async () => {
             // 5. Render results on UI
             clearLoader();
             searchView.renderResult(state.search.result);
-            errorView.clearErrors();
+            errorView.closeError(elements.errorWrap);
         }
         catch(error) {
-            errorView.renderError(errorText.wrongSearchValue);
+            errorView.renderError(error);
             clearLoader();
         }
     }

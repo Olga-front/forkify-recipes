@@ -12,6 +12,7 @@ export const controlList = () => {
     // Add each ingredient to the list
     state.recipe.ingredients.forEach(el => {
         const item = state.list.addItem(el.count, el.unit, el.ingredient);
+        listView.showDeleteBtn();
         listView.renderItem(item);
     });
 };

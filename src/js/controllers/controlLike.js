@@ -21,7 +21,7 @@ export const controlLike = () => {
 
         // Add like to UI list
         likesView.renderLike(newLike);
-
+        
         // User yes liked current recipe
     } else {
         // Remove like from the state

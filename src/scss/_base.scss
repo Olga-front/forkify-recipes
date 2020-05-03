@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: $font-family;
+    font-weight: 400;
+    line-height: 1.6;
+    color: $text-base;
+    background-image: linear-gradient(to bottom, $main-color-1, $main-color-2);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: calc(100vh - 2 * 4vw);
+}
+
+@media only screen and (max-width: 68.75em) {
+    html {
+        font-size: 50%;
+    }
+}
