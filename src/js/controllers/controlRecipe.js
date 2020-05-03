@@ -1,6 +1,7 @@
 import Recipe from '../modules/Recipe';
 import * as recipeView from '../views/recipeView';
 import * as searchView from '../views/searchView';
+import * as errorView from '../views/errorView';
 import { elements, renderLoader, clearLoader, state } from '../views/base';
 
 // /**
@@ -38,9 +39,11 @@ export const controlRecipe = async () => {
                 state.recipe,
                 state.likes.isLiked(id)
             );
+
+            errorView.closeError(elements.errorWrap);
         }
         catch (error) {
-            console.log(error);
+            errorView.renderError(error);
         }
     }
 };

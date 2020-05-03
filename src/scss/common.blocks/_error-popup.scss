@@ -1,7 +1,6 @@
 .error-message {
     font-size: 1.5rem;
-    padding: 1rem 2rem;
-    color: #f00;
+    padding: 1.5rem 5rem 1.5rem 2rem;
     position: fixed;
     top: 2rem;
     left: 50%;
@@ -14,10 +13,45 @@
     visibility: hidden;
     transform: translateX(-50%) translateY(-2rem);
     transition: 0.2s ease-in-out;
+    min-width: 32rem;
 }
 
 .error-message--shown {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
+}
+
+.error-message__close {
+    background-image: linear-gradient(to right bottom, $main-color-1, $main-color-2);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        top: .9rem;
+        left: .3rem;
+        width: 1.3rem;
+        height: .1rem;
+        background-color: #fff;
+    }
+
+    &:before {
+        transform: rotate(45deg);
+    }
+
+    &:after {
+        transform: rotate(-45deg);
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }

@@ -29,7 +29,7 @@ export const controlSearch = async () => {
             errorView.closeError(elements.errorWrap);
         }
         catch(error) {
-            errorView.renderError(error);
+            errorView.renderError(`Try to type "pizza"`);
             clearLoader();
         }
     }
