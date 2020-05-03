@@ -17,4 +17,4 @@ The following technologies were used in this project:
 - BEM methodology to make front-end code easier to read and understand, easier to work with, easier to scale and support
 
 
-Well, I really hopy you enjoy it!
+Well, I really hope you enjoy it!
